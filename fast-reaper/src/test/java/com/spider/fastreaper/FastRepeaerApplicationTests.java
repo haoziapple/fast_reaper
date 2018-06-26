@@ -1,4 +1,4 @@
-package com.spider.fastrepeaer;
+package com.spider.fastreaper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

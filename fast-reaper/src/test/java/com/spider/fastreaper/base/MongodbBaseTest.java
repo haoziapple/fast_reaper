@@ -1,4 +1,4 @@
-package com.spider.fastrepeaer.base;
+package com.spider.fastreaper.base;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;

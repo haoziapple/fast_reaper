@@ -22,10 +22,7 @@ public class FastReaperApplication {
 
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(FastReaperApplication.class, args);
-        String[] beanNames = ctx.getBeanDefinitionNames();
-        Arrays.stream(beanNames).forEach(
-                beanName -> logger.info("===registered bean: " + beanName + ", beanClass: " + ctx.getBean(beanName).getClass().getName())
-        );
+        System.out.println(ctx.getApplicationName());
     }
 
     /**
@@ -44,10 +41,11 @@ public class FastReaperApplication {
 
             Trigger trigger = TriggerBuilder.newTrigger()
                     .withIdentity(triggerKey("myTrigger", "myTriggerGroup"))
-                    // 以10秒为间隔，永远执行
+                    // 以30秒为间隔
                     .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                            .withIntervalInSeconds(10)
-                            .repeatForever())
+                            .withIntervalInSeconds(30)
+                            .withRepeatCount(5)) //重复5次
+                    //      .repeatForever()) // 永远执行
                     // 10秒后开始执行
                     .startAt(DateBuilder.futureDate(10, DateBuilder.IntervalUnit.SECOND))
                     .build();

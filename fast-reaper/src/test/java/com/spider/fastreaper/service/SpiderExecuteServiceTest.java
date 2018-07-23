@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
+
 import static org.junit.Assert.*;
 
 
@@ -28,6 +30,8 @@ public class SpiderExecuteServiceTest {
     @Test
     public void testCreateSpider() {
         service.createSpider(PROCESSOR_NAME, URLS, THREAD_NUM);
+        double d =0.01;
+        BigDecimal bigDecimal = BigDecimal.valueOf(d);
     }
 
 }

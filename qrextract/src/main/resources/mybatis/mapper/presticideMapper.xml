@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.component.spider.repository.mapper.PresticideMapper">
+    <resultMap id="BaseResultMap" type="com.component.spider.repository.entity.PresticideEntity">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="pesticide_name" jdbcType="VARCHAR" property="pesticideName" />
+        <result column="certificate_code" jdbcType="VARCHAR" property="certificateCode" />
+        <result column="pesticide_category_code" jdbcType="VARCHAR" property="pesticideCategoryCode" />
+        <result column="pesticide_category" jdbcType="VARCHAR" property="pesticideCategory" />
+        <result column="total_content" jdbcType="VARCHAR" property="totalContent" />
+        <result column="toxicity_code" jdbcType="VARCHAR" property="toxicityCode" />
+        <result column="toxicity" jdbcType="VARCHAR" property="toxicity" />
+        <result column="dosage_code" jdbcType="VARCHAR" property="dosageCode" />
+        <result column="dosage" jdbcType="VARCHAR" property="dosage" />
+        <result column="valid_start_day" jdbcType="VARCHAR" property="validStartDay" />
+        <result column="valid_last_day" jdbcType="VARCHAR" property="validLastDay" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="holder_name" jdbcType="VARCHAR" property="holderName" />
+        <result column="holder_id" jdbcType="VARCHAR" property="holderId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+      id, pesticide_name, certificate_code, pesticide_category_code, pesticide_category, total_content,
+       toxicity_code, toxicity, dosage_code, dosage, valid_start_day, valid_last_day, status, holder_name ,holder_id
+    </sql>
+    <select id="selectByCertificate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from presticide_detail_cpy
+        where certificate_code = #{certCode,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="com.component.spider.repository.entity.PresticideEntity">
+        insert into presticide_detail_cpy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="pesticideName != null">
+                pesticide_name,
+            </if>
+            <if test="certificateCode != null">
+                certificate_code,
+            </if>
+            <if test="pesticideCategoryCode != null">
+                pesticide_category_code,
+            </if>
+            <if test="pesticideCategory != null">
+                pesticide_category,
+            </if>
+            <if test="totalContent != null">
+                total_content,
+            </if>
+            <if test="toxicityCode != null">
+                toxicity_code,
+            </if>
+            <if test="toxicity != null">
+                toxicity,
+            </if>
+            <if test="dosageCode != null">
+                dosage_code,
+            </if>
+            <if test="dosage != null">
+                dosage,
+            </if>
+            <if test="validStartDay != null">
+                valid_start_day,
+            </if>
+            <if test="validLastDay != null">
+                valid_last_day,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="holderName != null">
+                holder_name,
+            </if>
+            <if test="holderId != null">
+                holder_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="pesticideName != null">
+                #{pesticideName,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateCode != null">
+                #{certificateCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pesticideCategoryCode != null">
+                #{pesticideCategoryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pesticideCategory != null">
+                #{pesticideCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="totalContent != null">
+                #{totalContent,jdbcType=VARCHAR},
+            </if>
+            <if test="toxicityCode != null">
+                #{toxicityCode,jdbcType=VARCHAR},
+            </if>
+            <if test="toxicity != null">
+                #{toxicity,jdbcType=VARCHAR},
+            </if>
+            <if test="dosageCode != null">
+                #{dosageCode,jdbcType=VARCHAR},
+            </if>
+            <if test="dosage != null">
+                #{dosage,jdbcType=VARCHAR},
+            </if>
+            <if test="validStartDay != null">
+                #{validStartDay,jdbcType=VARCHAR},
+            </if>
+            <if test="validLastDay != null">
+                #{validLastDay,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="holderName != null">
+                #{holderName,jdbcType=VARCHAR},
+            </if>
+            <if test="holderId != null">
+                #{holderId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.component.spider.repository.entity.PresticideEntity">
+        update presticide_detail_cpy
+        <set>
+            <if test="pesticideName != null">
+                pesticide_name = #{pesticideName,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateCode != null">
+                certificate_code = #{certificateCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pesticideCategoryCode != null">
+                pesticide_category_code = #{pesticideCategoryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pesticideCategory != null">
+                pesticide_category = #{pesticideCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="totalContent != null">
+                total_content = #{totalContent,jdbcType=VARCHAR},
+            </if>
+            <if test="toxicityCode != null">
+                toxicity_code = #{toxicityCode,jdbcType=VARCHAR},
+            </if>
+            <if test="toxicity != null">
+                toxicity = #{toxicity,jdbcType=VARCHAR},
+            </if>
+            <if test="dosageCode != null">
+                dosage_code = #{dosageCode,jdbcType=VARCHAR},
+            </if>
+            <if test="dosage != null">
+                dosage = #{dosage,jdbcType=VARCHAR},
+            </if>
+            <if test="validStartDay != null">
+                valid_start_day = #{validStartDay,jdbcType=VARCHAR},
+            </if>
+            <if test="validLastDay != null">
+                valid_last_day = #{validLastDay,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="holderName != null">
+                holder_name = #{holderName,jdbcType=VARCHAR},
+            </if>
+            <if test="holderId != null">
+                holder_id = #{holderId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

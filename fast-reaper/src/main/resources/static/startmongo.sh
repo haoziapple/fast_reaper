@@ -1,1 +1,1 @@
- /c/Program\ Files/MongoDB/Server/3.4/bin/mongod --config /d/mongo/mongo.conf
+ /c/Program\ Files/MongoDB/Server/3.6/bin/mongod --config /e/mongodata/etc/mongodb.conf

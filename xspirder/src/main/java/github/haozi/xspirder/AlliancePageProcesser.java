@@ -31,8 +31,8 @@ public class AlliancePageProcesser implements PageProcessor {
             page.setSkip(true);
         }
         // 部分三：从页面发现后续的url地址来抓取
-        page.addTargetRequests(page.getHtml().links().regex("(http://www\\.aii\\-alliance\\.org/index\\.php\\?m=content&c=index&a=show&catid=18&id=\\d+)").all());
-        System.out.println("===targetLinks:" + page.getHtml().links().regex("(http://www\\.aii\\-alliance\\.org/index\\.php\\?m=content&c=index&a=show&catid=18&id=\\d+)").all());
+        page.addTargetRequests(page.getHtml().links().regex("(http://www.aii-alliance.org/index.php\\?m=content&c=index&a=show&catid=18&id=\\d+)").all());
+        System.out.println("===targetLinks:" + page.getHtml().links().regex("(http://www.aii-alliance.org/index.php\\?m=content&c=index&a=show&catid=18&id=\\d+)").all());
     }
 
     @Override

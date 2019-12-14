@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description
  * @date 2019-12-12 19:39
  */
-@RestController
+//@RestController
 public class IndexController {
 
     @GetMapping("/{path}")

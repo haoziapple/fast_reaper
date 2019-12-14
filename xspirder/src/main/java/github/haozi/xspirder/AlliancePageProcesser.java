@@ -20,13 +20,19 @@ public class AlliancePageProcesser implements PageProcessor {
     public void process(Page page) {
         // 部分二：定义如何抽取页面信息，并保存下来
         page.putField("title", page.getHtml().getDocument().select(".inside_content_title").text());
-        page.putField("content", page.getHtml().css(".inside_content_text").smartContent().toString());
+        page.putField("content", page.getHtml().css(".inside_content_text").toString());
+        page.putField("smartContent", page.getHtml().css(".inside_content_text").smartContent().toString());
+        System.out.println("===URL:" + page.getUrl());
+        System.out.println("===title:" + page.getHtml().getDocument().select(".inside_content_title").text());
+        System.out.println("===content:" + page.getHtml().css(".inside_content_text").toString());
+        System.out.println("===smartContent:" + page.getHtml().css(".inside_content_text").smartContent().toString());
         if (StringUtils.isEmpty(page.getResultItems().get("title") )) {
             //skip this page
             page.setSkip(true);
         }
         // 部分三：从页面发现后续的url地址来抓取
         page.addTargetRequests(page.getHtml().links().regex("(http://www\\.aii\\-alliance\\.org/index\\.php\\?m=content&c=index&a=show&catid=18&id=\\d+)").all());
+        System.out.println("===targetLinks:" + page.getHtml().links().regex("(http://www\\.aii\\-alliance\\.org/index\\.php\\?m=content&c=index&a=show&catid=18&id=\\d+)").all());
     }
 
     @Override
@@ -40,8 +46,8 @@ public class AlliancePageProcesser implements PageProcessor {
                 .addUrl("http://www.aii-alliance.org/index.php?m=content&c=index&a=lists&catid=18")
                 .addPipeline(new ConsolePipeline())
                 .addPipeline(new FilePipeline("E:\\wanghao\\git-repo\\fast_reaper\\data"))
-                //开启5个线程抓取
-                .thread(5)
+                //开启1个线程抓取
+                .thread(1)
                 //启动爬虫
                 .run();
     }

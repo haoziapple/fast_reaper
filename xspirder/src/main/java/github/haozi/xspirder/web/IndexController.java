@@ -1,4 +1,4 @@
-package github.haozi.xspirder;
+package github.haozi.xspirder.web;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

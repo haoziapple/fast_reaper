@@ -1,9 +1,11 @@
 package github.haozi.xspirder.datarest;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import github.haozi.xspirder.datarest.consts.GrabStatus;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 /**
  * @author wanghao
@@ -16,16 +18,51 @@ public class TargetSite {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private String name;
 
     private String domain;
 
     /** 开始爬取的url */
+    @NotBlank
     private String startUrl;
     /** 目标url的正则 */
+    @NotBlank
     private String targetUrlRegex;
     /** 备注 */
     private String remark;
+    /** 抓取状态 */
+    private GrabStatus grabStatus;
+
+    @OneToMany(mappedBy = "targetSite", fetch = FetchType.EAGER)
+    private List<GrabRule> grabRules;
+
+    @OneToMany(mappedBy = "targetSite", fetch = FetchType.LAZY)
+    private List<GrabResult> grabResults;
+
+    public List<GrabRule> getGrabRules() {
+        return grabRules;
+    }
+
+    public void setGrabRules(List<GrabRule> grabRules) {
+        this.grabRules = grabRules;
+    }
+
+    public List<GrabResult> getGrabResults() {
+        return grabResults;
+    }
+
+    public void setGrabResults(List<GrabResult> grabResults) {
+        this.grabResults = grabResults;
+    }
+
+    public GrabStatus getGrabStatus() {
+        return grabStatus;
+    }
+
+    public void setGrabStatus(GrabStatus grabStatus) {
+        this.grabStatus = grabStatus;
+    }
 
     public Long getId() {
         return id;

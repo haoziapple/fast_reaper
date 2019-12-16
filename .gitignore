@@ -1,2 +1,6 @@
 *.iml
 .idea
+logs/
+
+### h2 data local file ###
+db/

@@ -1,5 +1,6 @@
 package github.haozi.xspirder.datarest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import github.haozi.xspirder.datarest.consts.GrabType;
 
 import javax.persistence.*;
@@ -10,9 +11,12 @@ import javax.persistence.*;
  * @date 2019-12-16 11:40
  */
 @Entity
+@Table(name = "t_grab_rule")
 public class GrabRule {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    @TableGenerator(name = "t_grab_rule", pkColumnValue = "t_grab_rule", initialValue = 0, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_grab_rule")
     private Long id;
     /** 站点id */
     @Column(name="site_id")
@@ -30,6 +34,7 @@ public class GrabRule {
     @Column(name="remark", nullable=true, length=2000)
     private String remark;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "site_id", insertable = false, updatable = false)
     private TargetSite targetSite;

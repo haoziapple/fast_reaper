@@ -24,4 +24,6 @@ public interface TargetSiteRepository extends PagingAndSortingRepository<TargetS
     List<TargetSite> findByName(@Param("name") String name);
 
     Page<TargetSite> findByNameOrderByIdDesc(@Param("name") String name, Pageable pageable);
+
+    Page<TargetSite> findByNameContains(@Param("name") String name, Pageable pageable);
 }

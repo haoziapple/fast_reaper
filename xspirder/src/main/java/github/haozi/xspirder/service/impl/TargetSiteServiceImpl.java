@@ -3,13 +3,11 @@ package github.haozi.xspirder.service.impl;
 import github.haozi.xspirder.DynamicPageProcessor;
 import github.haozi.xspirder.datarest.TargetSite;
 import github.haozi.xspirder.datarest.TargetSiteRepository;
-import github.haozi.xspirder.datarest.consts.GrabStatus;
 import github.haozi.xspirder.service.SpiderPoolService;
 import github.haozi.xspirder.service.TargetSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.pipeline.FilePipeline;
 import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 
 /**

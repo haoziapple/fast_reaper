@@ -1,5 +1,6 @@
 package github.haozi.xspirder.datarest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,11 +15,14 @@ import java.util.Map;
  * @date 2019-12-16 14:02
  */
 @Entity
+@Table(name = "t_grab_result")
 public class GrabResult {
     private static final ObjectMapper om = new ObjectMapper();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    @TableGenerator(name = "t_grab_result", pkColumnValue = "t_grab_result", initialValue = 0, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_grab_result")
     private Long id;
     /** 站点id */
     @Column(name="site_id")
@@ -31,6 +35,7 @@ public class GrabResult {
 
     private Date createTime;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "site_id", insertable = false, updatable = false)
     private TargetSite targetSite;

@@ -17,6 +17,9 @@ import java.util.List;
  * @date 2019-12-16 15:19
  */
 public class DynamicPageProcessor implements PageProcessor {
+    public static final String TARGET_URL = "targetUrl";
+    public static final String MATCH_URLS = "matchedUrls";
+
     private static final Logger log = LoggerFactory.getLogger(DynamicPageProcessor.class);
 
     private Long id;
@@ -36,34 +39,49 @@ public class DynamicPageProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        log.info("grab url: {}", page.getUrl());
-        page.putField("targetUrl", page.getUrl().get());
+        getTargetUrlField(page);
         for (GrabRule rule : grabRules) {
-            String grabData = null;
-            switch (rule.getGrabType()) {
-                case css:
-                    grabData = page.getHtml().getDocument().select(rule.getRuleText()).text();
-                    page.putField(rule.getKey(), grabData);
-                    break;
-                case xpath:
-                    grabData = page.getHtml().xpath(rule.getRuleText()).get();
-                    page.putField(rule.getKey(), grabData);
-                    break;
-                case regex:
-                    grabData = page.getHtml().regex(rule.getRuleText()).get();
-                    page.putField(rule.getKey(), grabData);
-                    break;
-                default:
-                    page.putField(rule.getKey(), null);
-            }
+            String grabData = getDynamicField(page, rule);
             if (!rule.getAllowEmpty() && StringUtils.isBlank(grabData)) {
                 // skip this page
                 page.setSkip(true);
             }
         }
-        List<String> urls = page.getHtml().links().regex(this.targetUrlRegex).all();
-        log.info("match target urls: {}", urls);
+        List<String> urls = getMatchedUrlsField(page);
         page.addTargetRequests(urls);
+    }
+
+    protected List<String> getMatchedUrlsField(Page page) {
+        List<String> matchedUrls = page.getHtml().links().regex(this.targetUrlRegex).all();
+        page.putField(MATCH_URLS, matchedUrls);
+        return matchedUrls;
+    }
+
+    protected String getTargetUrlField(Page page) {
+        String targetUrl = page.getUrl().get();
+        page.putField(TARGET_URL, targetUrl);
+        return targetUrl;
+    }
+
+    protected String getDynamicField(Page page, GrabRule rule) {
+        String grabData = null;
+        switch (rule.getGrabType()) {
+            case css:
+                grabData = page.getHtml().getDocument().select(rule.getRuleText()).text();
+                page.putField(rule.getKey(), grabData);
+                break;
+            case xpath:
+                grabData = page.getHtml().xpath(rule.getRuleText()).get();
+                page.putField(rule.getKey(), grabData);
+                break;
+            case regex:
+                grabData = page.getHtml().regex(rule.getRuleText()).get();
+                page.putField(rule.getKey(), grabData);
+                break;
+            default:
+                page.putField(rule.getKey(), null);
+        }
+        return grabData;
     }
 
     @Override

@@ -13,9 +13,12 @@ import java.util.List;
  * @date 2019-12-14 14:45
  */
 @Entity
+@Table(name = "t_target_site")
 public class TargetSite {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    @TableGenerator(name = "t_target_site", pkColumnValue = "t_target_site", initialValue = 0, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_target_site")
     private Long id;
 
     @NotBlank

@@ -31,6 +31,11 @@ public class SpiderPoolServiceImpl implements SpiderPoolService {
     @Async
     @Override
     public void runSpider(Spider spider, Long id) {
+        // 爬虫正在运行，不再重复启动
+        if (spiderPool.get(id) != null) {
+            return;
+        }
+
         TargetSite site = targetSiteRepository.findById(id).orElse(null);
         site.setGrabStatus(GrabStatus.running);
         targetSiteRepository.save(site);
@@ -45,7 +50,7 @@ public class SpiderPoolServiceImpl implements SpiderPoolService {
     @Override
     public void stopSpider(Long id) {
         Spider spider = spiderPool.get(id);
-        if(spider == null) {
+        if (spider == null) {
             return;
         }
         spider.stop();

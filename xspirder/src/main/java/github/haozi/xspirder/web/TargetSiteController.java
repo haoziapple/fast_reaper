@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author wanghao
@@ -34,6 +35,21 @@ public class TargetSiteController {
     public @ResponseBody
     ResponseEntity item(@PathVariable Long id) {
         return ResponseEntity.ok(targetSiteRepository.findById(id).orElse(null));
+    }
+
+    /**
+     * 查询状态
+     * @param id
+     * @return
+     */
+    @GetMapping("/status/{id}")
+    public @ResponseBody
+    ResponseEntity status(@PathVariable Long id) {
+        Optional<TargetSite> optional =  targetSiteRepository.findById(id);
+        if(optional.isPresent()) {
+            return ResponseEntity.ok(optional.get().getGrabStatus());
+        }
+        return ResponseEntity.ok(null);
     }
 
     @PostMapping("/delete/{id}")

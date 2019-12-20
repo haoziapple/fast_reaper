@@ -42,6 +42,10 @@ public class GrabResultServiceImpl implements GrabResultService {
         }
         resultFilePath += siteId.toString() + PATH_SEPERATOR;
 
+        if(!FileUtil.exist(resultFilePath)) {
+            return Collections.emptyList();
+        }
+
         List<String> resultFileNames = FileUtil.listFileNames(resultFilePath).stream().sorted().collect(Collectors.toList());
         Integer lastIndex = null;
         if (lastHash != null && resultFileNames.contains(lastHash)) {
